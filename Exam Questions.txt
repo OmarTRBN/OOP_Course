@@ -1,0 +1,4 @@
+Convert UML to Code (or vice versa)
+Given a class, explain what you see
+Give an example that uses *this
+UML class diagram cppcodetips.wordpress

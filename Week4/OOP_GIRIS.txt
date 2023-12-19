@@ -1,0 +1,29 @@
+Nesne yonelimli analiz (OOA):
+-Nesneleri belirleme
+-Model diyagrami
+-Ic kisimlari ve niteliklerini  belirlemek
+-Nesnenin davranislarini
+-Nesnelerin nasil etkilesimi gectigi
+
+Nesneye dayali tasarim (OOD):
+-Sinif verilerin yapilandirilmasi
+-Yontemlerinin, yani ic veri yapilarinin ve algoritmalarin uygulanmasi
+-Kontrolun uygulanmasi
+-Ortaliklarin uygulanmasi
+
+Nesne tabanli Programlama (OOP):
+
+Features:
+-Encapsulation - Data Hiding
+-Messaging 
+-Inheritence
+ --> Types of Inheritence:
+    - Single Inheritence
+    - Multiple Inheritence
+    - Hybrid Inheritence
+    - Multi-Level Inheritence
+    - Hierarchical Inheritence
+-Polymorphism
+-Genelleme ve Ozellestirme
+-Baglanti (Connection) ve Iliskiler (Linking)
+   

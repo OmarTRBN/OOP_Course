@@ -1,0 +1,6 @@
+1-) srand(time(0)) works better than rand()
+2-) When doing num = array[0] inside a function,
+    it has to be int &num. (see week4)
+3-) Week5 refVsPointer.cpp
+4-) for "new" you use delete[] not delete
+5-) 
