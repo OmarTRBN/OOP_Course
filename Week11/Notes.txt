@@ -6,3 +6,5 @@ Pay attention to:
     Overloading
 
 Unifirm Initialization
+
+Homework: An example of operators
