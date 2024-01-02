@@ -8,3 +8,5 @@ Pay attention to:
 Unifirm Initialization
 
 Homework: An example of operators
+
+Overloading yuzde 100 cikar 

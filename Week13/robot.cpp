@@ -74,6 +74,33 @@ public:
     }
 };
 
+class Gyroscope : public RobotComponent
+{
+private:
+    double sensitivity;
+
+public:
+    Gyroscope() : sensitivity(0.01) {}
+    Gyroscope(double s) : sensitivity(s) {}
+    ~Gyroscope() {}
+
+    void setParameters(double s)
+    {
+        sensitivity = s;
+    }
+
+    void getParameters() override
+    {
+        cout << "Sensitivity is equal to: " << sensitivity << " degrees per second" << endl;
+    }
+
+    double operate(double angularVelocity) override
+    {
+        double orientationChange = angularVelocity * sensitivity;
+        return orientationChange;
+    }
+};
+
 class Robot
 {
 private:
@@ -90,6 +117,8 @@ public:
     }
     ~Robot() {}
 
+    friend class RobotMonitor;
+
     void attachComponent(RobotComponent* newComponent)
     {
         componentsList.push_back(newComponent);
@@ -98,20 +127,6 @@ public:
     static int getObjectCounter()
     {
         return objectCounter;
-    }
-
-    void printComponentsInfo() const
-    {
-        for (size_t i = 0; i < componentsList.size(); ++i)
-        {
-            cout<< "Component " << i + 1 << ":" << endl;
-            componentsList[i]->getParameters();
-            cout << endl;
-        }
-        // for (const auto &component : componentsList)
-        // {   
-        //     component->getParameters();
-        // }
     }
 
     Robot &operator+=(RobotComponent *b)
@@ -123,6 +138,33 @@ public:
 
 int Robot::objectCounter = 0;
 
+class RobotMonitor
+{
+private:
+    Robot &robotObj;
+
+public:
+    RobotMonitor (Robot &robotObj) : robotObj(robotObj)
+    {
+        cout << "Robot monitor attached." << endl;
+    }
+
+    void printRobotInfo()
+    {
+        cout << "Name: " << robotObj.name << endl;
+        cout << "Serial number: " << robotObj.serialNumber << endl;
+    }
+
+    void printComponentsInfo()
+    {
+        for (size_t i = 0; i < robotObj.componentsList.size(); ++i)
+        {
+            cout << "Component " << i + 1 << ":" << endl;
+            robotObj.componentsList[i]->getParameters();
+            cout << endl;
+        }
+    }
+};
 
 int main(int argc, char const *argv[])
 {
@@ -131,25 +173,26 @@ int main(int argc, char const *argv[])
 
     DCMotor dcMotor(180, 5);
     dcMotor.getParameters();
-
-    DCMotor dcMotor2(121, 2);
-    dcMotor.getParameters();
-
-    Robot robot1("Viper");
-    Robot robot2("Arduinobot");
-
+    
+    Robot viper("Viper");
     cout << "Robot object instances: " << Robot::getObjectCounter() << endl;
 
-    RobotComponent *ptr1 = &tempSensor;
-    robot1.attachComponent(ptr1);
+    Robot robot2("Arduinobot");
+    cout << "Robot object instances: " << Robot::getObjectCounter() << endl;
+    
+    // DCMotor dcMotor2(121, 2);
+    // dcMotor2.getParameters();
 
-    RobotComponent *ptr2 = &dcMotor;
-    RobotComponent *ptr3 = &dcMotor2;
-    robot1.attachComponent(ptr2);
-    robot1.printComponentsInfo();
+    viper.attachComponent(&tempSensor);
+    viper.attachComponent(&dcMotor);
+
+    RobotMonitor monitorObj(viper);
+    monitorObj.printRobotInfo();
+    monitorObj.printComponentsInfo();
+
+    // RobotComponent *ptr3 = &dcMotor2;
     // robot2.printComponentsInfo();
-    robot2+=ptr3;
-    robot2.printComponentsInfo();
+    // robot2+=ptr3;
 
     return 0;
 }
